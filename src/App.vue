@@ -12,9 +12,10 @@ import { Icon } from "@iconify/vue";
       />
       <input class="weather_form_submit" type="submit" value="⎆" />
     </div>
-    <Icon class="icon_weather" icon="system-uicons:sun" />
-    <!-- <Icon class="icon_weather" icon="wpf:rain" />
-    <Icon class="icon_weather" icon="clarity:cloud-line" /> -->
+    <Icon class="icon_weather" icon="wpf:rain" />
+    <!-- <Icon class="icon_weather" icon="system-uicons:sun" />
+  
+    <Icon class="icon_weather" icon="clarity:cloud-line" />  -->
     <ul class="weather_info">
       <li class="weather_list">Temperature: 5°</li>
       <li class="weather_list">Feels Like: 5°</li>
@@ -26,8 +27,9 @@ import { Icon } from "@iconify/vue";
 
 <style scoped>
 .weather {
-  width: 900px;
-  height: 670px;
+  width: 1200px;
+  height: 800px;
+  
   background-color: rgb(14, 18, 27);
   opacity: 0.98;
   display: flex;
@@ -38,32 +40,36 @@ import { Icon } from "@iconify/vue";
   border-radius: 50px;
 }
 .weater_logo_text {
-  padding-top: 30px;
+  padding-top: 50px;
+  letter-spacing: 2px;
+  font-size: 35px;
+  font-weight: bold;
+  
 }
 .weather_form {
   border-radius: 20%;
-
   display: flex;
   flex-direction: row;
-  width: 65%;
+  width: 75%;
   outline: none;
   text-decoration: none;
-  height: 50px;
+  height: 90px;
   margin-top: 30px;
 }
 .weather_form_input {
   background-color: #0a0a0a;
   color: rgb(214, 221, 241);
   border: none;
-  font-size: 20px;
+  font-size: 28px;
   width: 90%;
   border-radius: 100px 0px 0px 100px;
-  padding-left: 1rem;
+  padding-left: 2rem;
   font-family: Andale Mono, monospace;
 }
+
 .weather_form_input::placeholder {
   color: rgb(214, 221, 241);
-  font-size: 18px;
+  font-size: 24px;
   font-family: Andale Mono, monospace;
 }
 :active,
@@ -74,26 +80,33 @@ import { Icon } from "@iconify/vue";
 }
 .weather_form_submit {
   background-color: #0a0a0a;
-  font-size: 40px;
+  font-size: 70px;
   color: rgb(214, 221, 241);
   border: none;
   border-radius: 0px 100px 100px 0px;
   width: 10%;
   cursor: pointer;
 }
+.weather_form_submit:hover {
+  color:#22a2c3;
+}
 .weather_info {
   margin-top: 10px;
-
-  width: 70%;
+  
+  width: 75%;
 }
 .icon_weather {
-  margin-top: 30px;
+  margin-top: 40px;
   width: 100px;
   height: 100px;
+  color:#22a2c3;
 }
 .weather_list {
-  margin-top: 30px;
+  margin-top: 40px;
   font-size: 20px;
   list-style-type: none;
+}
+.weather_list:first-child{
+  margin-top: 20px;
 }
 </style>
