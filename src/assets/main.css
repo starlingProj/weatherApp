@@ -1,5 +1,4 @@
-
-body{
+body {
   flex-direction: column;
   font-family: Andale Mono, monospace;
   justify-content: center;
@@ -10,8 +9,11 @@ body{
   padding: 0;
   box-sizing: border-box;
   min-height: 100vh;
-  background: rgb(34,162,195);
-  background: linear-gradient(332deg, rgba(34,162,195,1) 25%, rgba(16,39,204,1) 74%);
+  background: #22a2c3;
+  background: linear-gradient(
+    332deg,
+    rgba(34, 162, 195, 1) 25%,
+    rgba(16, 39, 204, 1) 74%
+  );
   background-repeat: no-repeat;
-  
 }

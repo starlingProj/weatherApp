@@ -96,5 +96,4 @@ import { Icon } from "@iconify/vue";
   font-size: 20px;
   list-style-type: none;
 }
-
 </style>
