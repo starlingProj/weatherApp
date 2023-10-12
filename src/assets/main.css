@@ -1,0 +1,17 @@
+
+body{
+  flex-direction: column;
+  font-family: Andale Mono, monospace;
+  justify-content: center;
+  align-items: center;
+  min-width: 100vw;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background: rgb(34,162,195);
+  background: linear-gradient(332deg, rgba(34,162,195,1) 25%, rgba(16,39,204,1) 74%);
+  background-repeat: no-repeat;
+  
+}
