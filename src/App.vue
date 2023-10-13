@@ -1,26 +1,69 @@
 <script setup>
 import { Icon } from "@iconify/vue";
+import axios from "axios";
+import { ref } from "vue";
+
+const city = ref("");
+const weatherInfo=ref('');
+const condition=ref('');
+const groupRain=['Drizzle','Thunderstorm','Rain'];
+
+const getInfo = async ()=>{
+  
+  const url =`https://api.openweathermap.org/data/2.5/weather?q=${city.value}&APPID=6288e47afa19211ac8a9dea80db1e55b&units=metric`
+
+  await axios.get(url)
+  .then((responce)=>{
+    weatherInfo.value = responce.data})
+  .catch((error)=>{
+    console.log(error)
+  })
+  condition.value= weatherInfo.value.weather[0].main
+}
+
+
+
+
 </script>
 <template>
   <div class="weather">
-    <h1 class="weater_logo_text">Weather in your city</h1>
+    <h1 class="weater_logo_text">
+      Weather in your city
+    </h1>
     <div class="weather_form">
       <input
+        v-model="city"
+        @keyup.enter="getInfo"
         class="weather_form_input"
         type="text"
         placeholder="Enter the name of the city"
       />
-      <input class="weather_form_submit" type="submit" value="⎆" />
+      <input @click="getInfo" class="weather_form_submit" type="submit" value="⎆" />
     </div>
-    <Icon class="icon_weather" icon="wpf:rain" />
-    <!-- <Icon class="icon_weather" icon="system-uicons:sun" />
+    <Icon 
+    v-if="weatherInfo&&condition=='Clouds'"
+    class="icon_weather" 
+    icon="clarity:cloud-line" /> 
+    <Icon 
+    v-else-if="weatherInfo&&groupRain.includes(condition)" 
+    class="icon_weather" 
+    icon="wpf:rain" />
+    <Icon 
+    v-else-if="weatherInfo&&condition=='Clear'" 
+    class="icon_weather" 
+    icon="system-uicons:sun" />
+    <Icon 
+    class="icon_weather"
+    v-else-if="weatherInfo&&condition=='Snow'"  
+    icon="mingcute:snow-line" />
   
-    <Icon class="icon_weather" icon="clarity:cloud-line" />  -->
-    <ul class="weather_info">
-      <li class="weather_list">Temperature: 5°</li>
-      <li class="weather_list">Feels Like: 5°</li>
-      <li class="weather_list">Minimum Temperature: 5°</li>
-      <li class="weather_list">Maximum temperature: 5°</li>
+    
+    
+    <ul v-if="weatherInfo" class="weather_info">
+      <li class="weather_list">Temperature: {{weatherInfo.main.temp+'°'}}</li>
+      <li class="weather_list">Feels Like: {{weatherInfo.main.feels_like+'°'}}</li>
+      <li class="weather_list">Minimum Temperature: {{weatherInfo.main.temp_min+'°'}}</li>
+      <li class="weather_list">Maximum temperature: {{weatherInfo.main.temp_max+'°'}}</li>
     </ul>
   </div>
 </template>
@@ -29,7 +72,7 @@ import { Icon } from "@iconify/vue";
 .weather {
   width: 1200px;
   height: 800px;
-  
+
   background-color: rgb(14, 18, 27);
   opacity: 0.98;
   display: flex;
@@ -44,7 +87,6 @@ import { Icon } from "@iconify/vue";
   letter-spacing: 2px;
   font-size: 35px;
   font-weight: bold;
-  
 }
 .weather_form {
   border-radius: 20%;
@@ -88,25 +130,25 @@ import { Icon } from "@iconify/vue";
   cursor: pointer;
 }
 .weather_form_submit:hover {
-  color:#22a2c3;
+  color: #22a2c3;
 }
 .weather_info {
   margin-top: 10px;
-  
+
   width: 75%;
 }
 .icon_weather {
   margin-top: 40px;
   width: 100px;
   height: 100px;
-  color:#22a2c3;
+  color: #22a2c3;
 }
 .weather_list {
   margin-top: 40px;
   font-size: 20px;
   list-style-type: none;
 }
-.weather_list:first-child{
+.weather_list:first-child {
   margin-top: 20px;
 }
 </style>
