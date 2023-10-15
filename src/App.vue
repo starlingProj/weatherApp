@@ -11,14 +11,31 @@ const groupRain=['Drizzle','Thunderstorm','Rain'];
 const getInfo = async ()=>{
   
   const url =`https://api.openweathermap.org/data/2.5/weather?q=${city.value}&APPID=6288e47afa19211ac8a9dea80db1e55b&units=metric`
-
   await axios.get(url)
   .then((responce)=>{
-    weatherInfo.value = responce.data})
-  .catch((error)=>{
-    console.log(error)
+    if(city.value.toLowerCase()===responce.data.name.toLowerCase()){
+    weatherInfo.value = responce.data
+    condition.value= weatherInfo.value.weather[0].main
+  }
+    
+    else{
+    alert('Please, enter the valid name of the city')
+    city.value=''
+    weatherInfo.value=''
+    
+  }
+  }
+ 
+    )
+  .catch((er)=>{
+    if(er.code==="ERR_BAD_REQUEST"){
+    alert('Please, enter the valid name of the city')
+    city.value=''
+    weatherInfo.value=''
+    }
+    else alert("Sorry, we have some problems")
   })
-  condition.value= weatherInfo.value.weather[0].main
+  
 }
 
 
@@ -28,8 +45,9 @@ const getInfo = async ()=>{
 <template>
   <div class="weather">
     <h1 class="weater_logo_text">
-      Weather in your city
+      Weather in {{weatherInfo? weatherInfo.name : 'your city'}} <br>
     </h1>
+    <h1 v-if="weatherInfo" class="contry"> Country:{{weatherInfo.sys.country}}</h1>
     <div class="weather_form">
       <input
         v-model="city"
@@ -74,7 +92,7 @@ const getInfo = async ()=>{
   height: 800px;
 
   background-color: rgb(14, 18, 27);
-  opacity: 0.98;
+  opacity: 0.85;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -86,6 +104,11 @@ const getInfo = async ()=>{
   padding-top: 50px;
   letter-spacing: 2px;
   font-size: 35px;
+  font-weight: bold;
+}
+.contry{
+  letter-spacing: 2px;
+  font-size: 30px;
   font-weight: bold;
 }
 .weather_form {
