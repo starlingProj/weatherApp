@@ -1,18 +1,14 @@
 <script setup>
 const props = defineProps({
-  modelValue: Boolean,
+  showModalInfo: Function,
 });
-const emits = defineEmits(["update:modelValue"]);
-const setShowModal = () => {
-  emits("update:modelValue", false);
-};
 </script>
 
 <template>
   <div class="modal">
     <div class="modalForm">
       <h1>Please, enter the valid name of the city</h1>
-      <button @click="setShowModal">Try Again</button>
+      <button @click="showModalInfo">Try Again</button>
     </div>
   </div>
 </template>

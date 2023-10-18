@@ -10,6 +10,9 @@ const weatherInfo = ref("");
 const condition = ref("");
 const groupRain = ["Drizzle", "Thunderstorm", "Rain"];
 const showModal = ref(false);
+const showModalInfo= ()=>{
+  showModal.value=false
+}
 
 const getInfo = async (city) => {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=6288e47afa19211ac8a9dea80db1e55b&units=metric`;
@@ -33,7 +36,7 @@ const getInfo = async (city) => {
   <div id="weather" class="weather">
     <WeatherLogo :weatherInfo="weatherInfo" />
     <WeatherForm :getInfo="getInfo" />
-    <ErrorModal v-if="showModal" v-model="showModal" />
+    <ErrorModal v-if="showModal" :showModalInfo="showModalInfo" />
     <Icon
       v-if="weatherInfo && condition == 'Clouds'"
       class="icon_weather"
