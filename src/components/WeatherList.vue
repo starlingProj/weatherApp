@@ -1,18 +1,19 @@
 <script setup>
-const props = defineProps({
-  weatherInfo: Object,
-});
+import { useWeatherStore } from "../stores/WeatherStore";
+const weatherStore = useWeatherStore();
 </script>
 <template>
-  <li class="weather_list">Temperature: {{ weatherInfo.main.temp + "°" }}</li>
   <li class="weather_list">
-    Feels Like: {{ weatherInfo.main.feels_like + "°" }}
+    Temperature: {{ weatherStore.weatherInfo.main.temp + "°" }}
   </li>
   <li class="weather_list">
-    Minimum Temperature: {{ weatherInfo.main.temp_min + "°" }}
+    Feels Like: {{ weatherStore.weatherInfo.main.feels_like + "°" }}
   </li>
   <li class="weather_list">
-    Maximum temperature: {{ weatherInfo.main.temp_max + "°" }}
+    Minimum Temperature: {{ weatherStore.weatherInfo.main.temp_min + "°" }}
+  </li>
+  <li class="weather_list">
+    Maximum temperature: {{ weatherStore.weatherInfo.main.temp_max + "°" }}
   </li>
 </template>
 

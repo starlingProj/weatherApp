@@ -1,11 +1,10 @@
 <script setup>
 import { ref } from "vue";
+import { useWeatherStore } from "../stores/WeatherStore";
+const weatherStore = useWeatherStore();
 const city = ref("");
-const props = defineProps({
-  getInfo: Function,
-});
 const setCity = () => {
-  props.getInfo(city.value);
+  weatherStore.getInfo(city.value);
   city.value = "";
 };
 </script>

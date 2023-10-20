@@ -4,61 +4,39 @@ import WeatherForm from "./components/WeatherForm.vue";
 import WeatherList from "./components/WeatherList.vue";
 import ErrorModal from "./components/ErrorModal.vue";
 import { Icon } from "@iconify/vue";
-import axios from "axios";
-import { ref } from "vue";
-const weatherInfo = ref("");
-const condition = ref("");
+import { useWeatherStore } from "./stores/WeatherStore";
+const weatherStore = useWeatherStore();
 const groupRain = ["Drizzle", "Thunderstorm", "Rain"];
-const showModal = ref(false);
-const showModalInfo= ()=>{
-  showModal.value=false
-}
-
-const getInfo = async (city) => {
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=6288e47afa19211ac8a9dea80db1e55b&units=metric`;
-  await axios
-    .get(url)
-    .then((responce) => {
-      if (city.toLowerCase() === responce.data.name.toLowerCase()) {
-        weatherInfo.value = responce.data;
-        condition.value = weatherInfo.value.weather[0].main;
-      }
-    })
-    .catch((er) => {
-      if (er.code === "ERR_BAD_REQUEST") {
-        showModal.value = true;
-        weatherInfo.value = "";
-      }
-    });
-};
 </script>
 <template>
   <div id="weather" class="weather">
-    <WeatherLogo :weatherInfo="weatherInfo" />
-    <WeatherForm :getInfo="getInfo" />
-    <ErrorModal v-if="showModal" :showModalInfo="showModalInfo" />
+    <WeatherLogo />
+    <WeatherForm  />
+    <ErrorModal v-if="weatherStore.showModal" />
     <Icon
-      v-if="weatherInfo && condition == 'Clouds'"
+      v-if="weatherStore.weatherInfo && weatherStore.condition == 'Clouds'"
       class="icon_weather"
       icon="clarity:cloud-line"
     />
     <Icon
-      v-else-if="weatherInfo && groupRain.includes(condition)"
+      v-else-if="
+        weatherStore.weatherInfo && groupRain.includes(weatherStore.condition)
+      "
       class="icon_weather"
       icon="wpf:rain"
     />
     <Icon
-      v-else-if="weatherInfo && condition == 'Clear'"
+      v-else-if="weatherStore.weatherInfo && weatherStore.condition == 'Clear'"
       class="icon_weather"
       icon="system-uicons:sun"
     />
     <Icon
       class="icon_weather"
-      v-else-if="weatherInfo && condition == 'Snow'"
+      v-else-if="weatherStore.weatherInfo && weatherStore.condition == 'Snow'"
       icon="mingcute:snow-line"
     />
-    <ul v-if="weatherInfo" class="weather_info">
-      <WeatherList :weatherInfo="weatherInfo" />
+    <ul v-if="weatherStore.weatherInfo" class="weather_info">
+      <WeatherList />
     </ul>
   </div>
 </template>
